@@ -1,0 +1,59 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+
+{% block title %}
+<title>FINDOCTOR - Login Page</title>
+{% endblock %}
+{% block content %}
+
+<main>
+	<div class="bg_color_2">
+		<div class="container margin_60_35">
+			<div id="login">
+				<h1>Please login to Findoctor!</h1>
+				<div class="box_form">
+					<form action="{% url 'login' %}" method="post">
+						{% csrf_token %}
+
+						{% if msg %}
+						<strong>
+							<p style="color:red;">{{msg}}</p>
+						</strong>
+						{% endif %}
+
+						<div class="form-group">
+							<label>Role</label>
+							<select class="form-control" id="role" name="role">
+								<option value="select">---SELECT---</option>
+								<option>Patient</option>
+								<option>Doctor</option>
+							</select>
+						</div>
+						<div class="divider"></div>
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" placeholder="Your email address" name="email">
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input type="password" class="form-control" placeholder="Your password" name="password"
+								id="password">
+						</div>
+						<a href="#0"><small>Forgot password?</small></a>
+						<div class="form-group text-center add_top_20">
+							<input class="btn_1 medium" type="submit" value="Login">
+						</div>
+						<div class="form-group text-center add_top_20">
+							<a class="btn_1 medium" href="{% url 'adminloginpage' %}">Admin Login</a>
+						</div>
+					</form>
+				</div>
+				<p class="text-center link_bright">Do not have an account yet? <a
+						href="{% url 'registerpage' %}"><strong>Register now!</strong></a></p>
+			</div>
+			<!-- /login -->
+		</div>
+	</div>
+</main>
+<!-- /main -->
+{% endblock%}

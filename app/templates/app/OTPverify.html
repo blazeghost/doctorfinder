@@ -1,0 +1,50 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+{% block title %}
+<title>FINDOCTOR - OTP Verification</title>
+{% endblock %}
+{% block content %}
+
+<main>
+    <div class="bg_color_2">
+        <div class="container margin_60_35">
+            <div id="login-2">
+                <h1>OTP Verification</h1>
+                <form method="post" action="{% url 'otpverify' %}">
+                    {% csrf_token %}
+                    {% if msg %}
+                    <strong>
+                        <p style="color:red; text-align: center;">{{msg}}</p>
+                    </strong>
+                    {% endif %}
+                    <div class="box_form clearfix">
+                        <div class="box_login">
+
+                            <img src="{% static 'images/otp-pic.jpg' %}" alt="" width="250px" height="165px"
+                                draggable="false">
+                        </div>
+                        <div class="box_login last">
+
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Enter Your Email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your OTP" name="otpverify">
+                            </div>
+
+                            <div class="form-group">
+                                <input class="btn_1" type="submit" value="Verify">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <p class="text-center link_bright">Do not have an account yet? <a href="#0"><strong>Register
+                            now!</strong></a></p>
+            </div>
+            <!-- /login -->
+        </div>
+    </div>
+</main>
+<!-- /main -->
+
+{% endblock %}

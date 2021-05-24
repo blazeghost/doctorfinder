@@ -1,0 +1,126 @@
+{% extends 'app/doctor/base1.html' %}
+{% load static %}
+{% block content %}
+<!-- /Navigation-->
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+      </li>
+      <li class="breadcrumb-item active">Bookings</li>
+    </ol>
+    <div class="box_general">
+      <div class="header_box">
+        <h2 class="d-inline-block">Bookings List</h2>
+        <div class="filter">
+          <select name="orderby" class="selectbox">
+            <option value="Any status">Any status</option>
+            <option value="Approved">Approved</option>
+            <option value="Pending">Pending</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="list_general">
+        <ul>
+
+
+          {% if key1 %}
+
+          {% for i in key1 %}
+          {% if i.doc_id.m_id.id == request.session.id %}
+
+          <li>
+            <a href="{% url 'doc-patientprofile' pk=i.patient_id.id %}" style="text-decoration: none; color: #777777;">
+              <figure><img src="{{MEDIA_URL}}{{i.patient_id.profile_pic.url}}" alt=""></figure>
+              <h4>{{i.patient_id.Firstname}} {{i.patient_id.Lastname}}
+
+                {% if i.Currentstatus == "Pending" %}
+                <i class="pending">{{i.Currentstatus}}</i>
+                {% elif i.Currentstatus == "Approved" %}
+                <i class="approved">{{i.Currentstatus}}</i>
+                {% elif i.Currentstatus == "Cancel" %}
+                <i class="cancel">{{i.Currentstatus}}</i>
+                {% endif %}
+
+              </h4>
+              <ul class="booking_details">
+                <li><strong>Booking date</strong>{{i.Booking_date}}</li>
+                <li><strong>Booking time</strong>{{i.Booking_time}}</li>
+                <li><strong>Visits</strong>{{i.Visits}}</li>
+                <li><strong>Telephone</strong> {{i.patient_id.Contact}}</li>
+                <li><strong>Email</strong> {{i.patient_id.m_id.Email}}</li>
+              </ul>
+              <ul class="buttons">
+                {% if i.Currentstatus == "Pending" %}
+                <li>
+                  <form action="{% url 'docbookingapprove' pk=i.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve
+                    </button>
+                  </form>
+                </li>
+                {% elif i.Currentstatus == "Cancel" %}
+                <li>
+                  <form action="{% url 'docbookingapprove' pk=i.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve
+                    </button>
+                  </form>
+                </li>
+
+                {% endif %}
+
+                <li>
+                  <form action="{% url 'docbookingcancel' pk=i.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel
+                    </button>
+                  </form>
+                </li>
+                <br>
+                <br>
+                {% if i.Currentstatus == "Approved" %}
+                <li>
+                  <form action="{% url 'newcase' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="app_id" value="{{i.id}}">
+                    <button type="submit" class="btn_1"><i class="fa fa-fw fa-file-text-o"></i> Open Case
+                    </button>
+                  </form>
+                </li>
+                {% endif %}
+
+              </ul>
+            </a>
+          </li>
+
+          {% endif %}
+          {% endfor %}
+
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <!-- /box_general-->
+    <nav aria-label="...">
+      <ul class="pagination pagination-sm add_bottom_30">
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /pagination-->
+  </div>
+  <!-- /container-fluid-->
+</div>
+<!-- /container-wrapper-->
+{% endblock %}

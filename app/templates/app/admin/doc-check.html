@@ -1,0 +1,114 @@
+{% extends 'app/admin/base1.html' %}
+{% load static %}
+{% block content %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            {% if key_doc %}
+            <h1 class="mt-4">Doctor : {{key_doc.Firstname}} {{key_doc.Lastname}} </h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">Doctor Edit</li>
+            </ol>
+            {% endif %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="mb-0">
+                    <form action="{% url 'doc-check' pk=key_doc.m_id.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if key_doc %}
+                        <div class="form-row">
+                            <!-- <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="m_id">Master Id</label>
+                                                    <input class="form-control py-4" type="text" value="{{key_doc.m_id.id}}" disabled>
+                                                </div>
+                                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="ver_doc">Verification Document</label>
+                                    <a href="{{MEDIA_URL}}{{key_doc.ver_doc.url}}" class="form-control btn btn-success"
+                                        target="_blank">Download</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-row">
+                            <!-- <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="is_verified">Current Value of : is_verified</label>
+                                                    <select class="form-control" style="height: 50px;" id="is_verified" name="is_verified" disabled>
+                                                        <option>{{key_doc.m_id.is_verified}}</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="is_verified">is_verified</label>
+                                    <select class="form-control" style="height: 50px;" id="is_verified"
+                                        name="is_verified">
+                                        {% if key_doc.m_id.is_verified == False %}
+                                        <option>{{key_doc.m_id.is_verified}}</option>
+                                        <option>True</option>
+                                        {% else %}
+                                        <option>{{key_doc.m_id.is_verified}}</option>
+                                        <option>False</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <!-- <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="is_active">Current Value of : is_active</label>
+                                                    <select class="form-control" style="height: 50px;" id="is_active" name="is_active" disabled>
+                                                        <option>{{key_doc.m_id.is_active}}</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="small mb-1" for="is_active">is_active</label>
+                                    <select class="form-control" style="height: 50px;" id="is_active" name="is_active">
+                                        {% if key_doc.m_id.is_active == False %}
+                                        <option>{{key_doc.m_id.is_active}}</option>
+                                        <option>True</option>
+                                        {% else %}
+                                        <option>{{key_doc.m_id.is_active}}</option>
+                                        <option>False</option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="form-group mt-4 mb-0"><button type="submit"
+                                    class="btn btn-success px-5">Submit</button></div>
+
+                        </div>
+                        <br>
+                        <hr>
+
+                        <div class="row justify-content-center">
+                            <div class="btn btn-primary px-5"><a href="{% url 'admin-doc-list' %}"
+                                    style="color: white;"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+                                    Back to Doctor List</a></div>
+                        </div>
+
+                    </form>
+                    {% endif %}
+
+                    </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% endblock %}

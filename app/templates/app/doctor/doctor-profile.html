@@ -1,0 +1,253 @@
+{% extends 'app/doctor/base1.html' %}
+{% load static %}
+{% block content %}
+<!-- /Navigation-->
+<div class="content-wrapper">
+	<div class="container-fluid">
+		<!-- Breadcrumbs-->
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="#">Dashboard</a>
+			</li>
+			<li class="breadcrumb-item active">Profile</li>
+		</ol>
+		<form action="{% url 'updateprofile' pk=request.session.id %}" method="post" enctype="multipart/form-data"
+			onsubmit="message()">
+			{% csrf_token %}
+
+			{% if key1 %}
+
+			<div class="box_general padding_bottom">
+				<div class="header_box version_2">
+					<h2><i class="fa fa-file"></i>Basic info</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<img src="{{MEDIA_URL}}{{key1.profile_pic.url}}" alt="" height="150px" width="150px"
+								draggable="false">
+
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Update Profile picture</label>
+							<input class="form-control" type="file" name="pro-pic" id="profilepic">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" placeholder="Your name" name="fname"
+								value="{{key1.Firstname}}">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Last name</label>
+							<input type="text" class="form-control" placeholder="Your last name" name="lname"
+								value="{{key1.Lastname}}">
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Contact</label>
+							<input type="tel" class="form-control" placeholder="Your telephone number" name="contact"
+								value="{{key1.Contact}}">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Email</label>
+							<input type="email" class="form-control" placeholder="Your email" name="email"
+								value="{{request.session.Email}}" disabled>
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Gender</label>
+							<select class="form-control" name="gender" id="">
+								{% if key1.Gender == "SELECT" %}
+								<option>Male</option>
+								<option>Female</option>
+								{% else %}
+								{% if key1.Gender == "Male" %}
+								<option>{{key1.Gender}}</option>
+								<option>Female</option>
+								{% else %}
+								<option>{{key1.Gender}}</option>
+								<option>Male</option>
+								{% endif %}
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>Date of Birth</label>
+							<input type="date" class="form-control" name="dob" id="">
+							<!-- {% if key1.DOB == "2020-12-01" %} -->
+
+							<!-- <input type="date" class="form-control" name="dob"> -->
+							<!-- {% else %}
+							<p class="form-control">{{key1.DOB}}</p>
+							{% endif %} -->
+						</div>
+						<!-- <input type="date" class="form-control" name="dob" id=""> -->
+					</div>
+				</div>
+
+				<!-- /row-->
+			</div>
+			<!-- /box_general-->
+
+			<div class="box_general padding_bottom">
+				<div class="header_box version_2">
+					<h2><i class="fa fa-map-marker"></i>Address</h2>
+				</div>
+				<!-- /row-->
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>City</label>
+							<input type="text" class="form-control" placeholder="Your City" value="{{key1.City}}"
+								name="city">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>State</label>
+							<input type="text" class="form-control" placeholder="Your state" value="{{key1.State}}"
+								name="state">
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+			</div>
+			<!-- /box_general-->
+
+			<div class="box_general padding_bottom">
+				<div class="header_box version_2">
+					<h2><i class="fa fa-file-text"></i>Curriculum</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Intro <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Your Introduction"><i class="fa fa-fw fa-question-circle"></i></a></label>
+							<textarea class="form-control" name="intro" id="" cols="100%"
+								rows="5">{{key1.Intro}}</textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Experience <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Your Experience"><i class="fa fa-fw fa-question-circle"></i></a></label>
+							<textarea class="form-control" name="exp" id="" cols="100%"
+								rows="5">{{key1.Experience}}</textarea>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Education <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Your Education"><i class="fa fa-fw fa-question-circle"></i></a></label>
+							<textarea class="form-control" name="edu" id="" cols="100%"
+								rows="5">{{key1.Education}}</textarea>
+						</div>
+
+					</div>
+				</div>
+				<!-- /row-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Specialization <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Separated by commas"><i class="fa fa-fw fa-question-circle"></i></a></label>
+							<input type="text" class="form-control" placeholder="Ex: Piscologist, Pediatrician..."
+								name="spec" value="{{key1.Specilazation}}">
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Designation <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Your Designation"><i class="fa fa-fw fa-question-circle"></i></a></label>
+							<input type="text" class="form-control" placeholder="Ex: " name="designation"
+								value="{{key1.Designation}}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /box_general-->
+
+			<div class="box_general padding_bottom">
+				<div class="header_box version_2">
+					<h2><i class="fa fa-folder"></i>Working hours</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>From</label>
+							<input type="time" class="form-control" value="{{key1.Working_hrs_start}}"
+								name="work-hrs-start">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label>To</label>
+							<input type="time" class="form-control" value="{{key1.Working_hrs_end}}"
+								name="work-hrs-end">
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+			</div>
+			<!-- /box_general-->
+			<div class="box_general padding_bottom">
+				<div class="header_box version_2">
+					<h2><i class="fa fa-file"></i>Documents</h2>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>Verification Document <a href="#0" data-toggle="tooltip" data-placement="top"
+									title="Your Verification Document"><i
+										class="fa fa-fw fa-question-circle"></i></a></label>
+							<input type="file" class="form-control" name="verdoc">
+						</div>
+					</div>
+				</div>
+				<!-- /row-->
+			</div>
+			<p><input class="btn_1 medium" type="submit" value="Save"></p>
+			{% endif %}
+		</form>
+	</div>
+	<!-- /.container-fluid-->
+</div>
+<!-- /.container-wrapper-->
+<script>
+	function message() {
+
+		alert("Profile Update Submited");
+	}
+</script>
+{% endblock %}

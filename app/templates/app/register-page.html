@@ -1,0 +1,43 @@
+{% extends 'app/base1.html' %}
+{% load static %}
+
+{% block title %}
+<title>FINDOCTOR - Register Page</title>
+{% endblock %}
+{% block content %}
+
+<main>
+	<div class="bg_color_2">
+		<div class="container margin_60_35">
+			<div id="login-2">
+				<h1>Please Register at Findoctor!</h1>
+				<form>
+					<div class="box_form clearfix" style="text-align: center;">
+						<div class="box_login">
+							<a href="{% url 'registerdoctorpage' %}">
+								<img src="{% static '/images/doctor-logo.png' %}" alt="" height="250px" width="200px">
+								<label class="btn_1 medium w-100">Doctor</label>
+							</a>
+
+
+						</div>
+						<div class="box_login last">
+							<a href="{% url 'registerpatientpage' %}">
+								<img src="{% static '/images/user-logo.png' %}" alt="" height="250px" width="200px">
+								<label class="btn_1 medium w-100">Patient</label>
+							</a>
+
+
+						</div>
+					</div>
+			</div>
+			</form>
+			<!-- <p class="text-center link_bright">Do not have an account yet? <a href="#0"><strong>Register now!</strong></a></p> -->
+		</div>
+		<!-- /login -->
+	</div>
+	</div>
+</main>
+<!-- /main -->
+
+{% endblock %}
